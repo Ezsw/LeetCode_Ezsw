@@ -1,0 +1,43 @@
+
+// @Title: 二叉树的层序遍历 II (Binary Tree Level Order Traversal II)
+// @Author: 17816069684
+// @Date: 2020-09-06 17:08:31
+// @Runtime: 1 ms
+// @Memory: 39.1 MB
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> levelOrder = new LinkedList<List<Integer>>();
+        if (root == null) {
+            return levelOrder;
+        }
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<Integer> level = new ArrayList<Integer>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                level.add(node.val);
+                TreeNode left = node.left, right = node.right;
+                if (left != null) {
+                    queue.offer(left);
+                }
+                if (right != null) {
+                    queue.offer(right);
+                }
+            }
+            levelOrder.add(0, level);
+        }
+        return levelOrder;
+    }
+}
